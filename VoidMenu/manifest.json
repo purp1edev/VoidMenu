@@ -1,0 +1,15 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
+  "id": "VoidMenu",
+  "name": "VoidMenu",
+  "author": "Purp1e",
+  "version": "1.0.0",
+  "description": "",
+  "gameVersion": "1.16.2",
+  "dependsOn": {
+    "BSIPA": "^4.0.5",
+    "BS Utils": "^1.10",
+    "BeatSaberMarkupLanguage": "^1.5.3"
+  },
+  "features": []
+}
