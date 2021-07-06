@@ -8,6 +8,7 @@ using IPA.Config.Stores;
 using BeatSaberMarkupLanguage.Settings;
 using UnityEngine;
 using IPALogger = IPA.Logging.Logger;
+using BS_Utils.Utilities;
 
 namespace VoidMenu
 {
@@ -24,7 +25,7 @@ namespace VoidMenu
         /// [Init] methods that use a Constructor or called before regular methods like InitWithConfig.
         /// Only use [Init] with one Constructor.
         /// </summary>
-        public void Init(IPALogger logger, Config conf)
+        public void Init(IPALogger logger, IPA.Config.Config conf)
         {
             Instance = this;
             Log = logger;
@@ -33,16 +34,22 @@ namespace VoidMenu
             BSMLSettings.instance.AddSettingsMenu("VoidMenu", "VoidMenu.Configuration.settings.bsml", Configuration.PluginConfig.Instance);
 
             Log.Info("VoidMenu initialized.");
+            BSEvents.lateMenuSceneLoadedFresh += LateMenuSceneLoaded;
         }
 
         [OnStart]
         public void OnApplicationStart()
         {
             Log.Debug("OnApplicationStart");
-            new GameObject("VoidMenuController").AddComponent<VoidMenuController>();
 
         }
-
+        void LateMenuSceneLoaded(ScenesTransitionSetupDataSO setupDataSO)
+        {
+            if (Configuration.PluginConfig.Instance.enabled)
+            {
+                GameObject.Find("MenuEnvironmentManager").SetActive(false);
+            }
+        }
         [OnExit]
         public void OnApplicationQuit()
         {
